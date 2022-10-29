@@ -1,10 +1,11 @@
 import "@/styles/globals.css"
+import { SunIcon, MoonIcon } from "@heroicons/react/24/solid"
 import type { AppProps } from "next/app"
 import Head from "next/head"
 import { useRouter } from "next/router"
 import { useEffect, useState } from "react"
-import MoonIcon from "@/components/icons/MoonIcon"
-import SunIcon from "@/components/icons/SunIcon"
+// import MoonIcon from "@/components/icons/MoonIcon"
+// import SunIcon from "@/components/icons/SunIcon"
 import styles from "@/styles/App.module.scss"
 
 function MyApp({ Component, pageProps }: AppProps) {
@@ -59,7 +60,11 @@ function MyApp({ Component, pageProps }: AppProps) {
             ` dark:hover:bg-white dark:hover:text-black`
           }
         >
-          {isDark ? <SunIcon /> : <MoonIcon />}
+          {isDark ? (
+            <SunIcon className="w-[10px] h-[10px]" />
+          ) : (
+            <MoonIcon className="w-[10px] h-[10px]" />
+          )}
         </button>
       </header>
 

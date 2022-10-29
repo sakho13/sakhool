@@ -1,8 +1,5 @@
 import type { NextPage } from "next"
 import { useState, MouseEvent } from "react"
-import ChevronDoubleLeft from "@/components/icons/ChevronDoubleLeft"
-import ChevronDoubleRight from "@/components/icons/ChevronDoubleRight"
-import { designPaths } from "@/statics/design_paths"
 import styles from "@/styles/tools/color_stripe.module.scss"
 
 const ColorStripe: NextPage = () => {
@@ -92,6 +89,32 @@ const ColorStripe: NextPage = () => {
     }
   }
 
+  const editColors = (newColor: string, index: number) => {
+    const tColor = colors[index]
+    if (tColor === 1) {
+      // add
+      if (index === 1) {
+        setColors([1, newColor, ...colors])
+        return
+      }
+      if (index === colors.length - 1) {
+        setColors([...colors, newColor, 1])
+        return
+      }
+
+      const before = colors.slice(0, index)
+      const after = colors.slice(index)
+      setColors([...before, 1, newColor, 1, ...after])
+      return
+    } else {
+      // edit
+      const newColors = Array.from(colors)
+      newColors[index] = newColor
+      setColors(newColors)
+      return
+    }
+  }
+
   const closeColorModal = () => {
     setColorModalPosition(null)
     setAddColorModal(null)
@@ -177,6 +200,9 @@ const ColorStripe: NextPage = () => {
             type="text"
             name="rgb_color"
             value={color}
+            onChange={(e) => {
+              //
+            }}
           />
         </div>
       ) : undefined}
