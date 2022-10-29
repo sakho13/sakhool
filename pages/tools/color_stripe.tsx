@@ -29,6 +29,11 @@ const ColorStripe: NextPage = () => {
   // 色ストライプ編集モーダル関係
   const [editColorModal, setEditColorModal] = useState<null | number>(null)
 
+  // ホバーされている要素
+  const [hoveredIndex, setHoveredIndex] = useState<number | null>(null)
+
+  const [color, setColor] = useState<string>("")
+
   /**
    * 色ストライプ追加
    * @param index
@@ -40,6 +45,7 @@ const ColorStripe: NextPage = () => {
   ) => {
     if (editColorModal !== null) setEditColorModal(null)
 
+    setColor("")
     // console.log("add: ", index)
     console.log(e)
     console.log(document.body.clientWidth, document.body.clientHeight)
@@ -64,20 +70,26 @@ const ColorStripe: NextPage = () => {
   ) => {
     if (addColorModal !== null) setAddColorModal(null)
 
+    setColor("")
     console.log("edit: ", index)
-    const h =
-      document.body.clientWidth > e.pageX + addColorModalSize.horizontal
-        ? e.pageX
-        : e.pageX - addColorModalSize.horizontal
-    const v =
-      document.body.clientHeight > e.pageY + addColorModalSize.vertical
-        ? e.pageY
-        : e.pageY - addColorModalSize.vertical
-    setEditColorModal(index)
-    setColorModalPosition({
-      vertical: v,
-      horizontal: h,
-    })
+    const c = colors[index]
+    if (c !== 1) {
+      setColor(c)
+
+      const h =
+        document.body.clientWidth > e.pageX + addColorModalSize.horizontal
+          ? e.pageX
+          : e.pageX - addColorModalSize.horizontal
+      const v =
+        document.body.clientHeight > e.pageY + addColorModalSize.vertical
+          ? e.pageY
+          : e.pageY - addColorModalSize.vertical
+      setEditColorModal(index)
+      setColorModalPosition({
+        vertical: v,
+        horizontal: h,
+      })
+    }
   }
 
   const closeColorModal = () => {
@@ -94,10 +106,13 @@ const ColorStripe: NextPage = () => {
             return (
               <div
                 key={`c-${i}`}
-                className={`w-[100%]`}
+                className={`w-[100%]` + ` cursor-pointer`}
                 style={{ backgroundColor: `${color}` }}
                 onClick={(e) => {
                   openEditColorModal(i, e)
+                }}
+                onMouseEnter={() => {
+                  setHoveredIndex(i)
                 }}
               >
                 <p>{color}</p>
@@ -108,14 +123,19 @@ const ColorStripe: NextPage = () => {
               <div
                 key={`a-${i}`}
                 className={
-                  `w-[2px] hover:w-[20px]` +
+                  `w-[5px] hover:w-[20px]` +
                   ` hover:bg-gray-400` +
                   ` cursor-pointer`
                 }
                 onClick={(e) => {
                   openAddColorModal(i, e)
                 }}
-              ></div>
+                onMouseEnter={() => {
+                  setHoveredIndex(i)
+                }}
+              >
+                {/* {i === hoveredIndex ? <div>hovered</div> : <></>} */}
+              </div>
             )
           }
         })}
@@ -126,16 +146,19 @@ const ColorStripe: NextPage = () => {
           className={
             styles.AddColorModalContainer +
             ` absolute z-100` +
-            ` w-[${addColorModalSize.horizontal}px] h-[${addColorModalSize.vertical}px]` +
-            ` bg-black`
+            ` dark:bg-header-dark bg-white` +
+            ` rounded-[8px]` +
+            ` p-[10px]`
           }
           style={{
             top: `${colorModalPosition.vertical}px`,
             left: `${colorModalPosition.horizontal}px`,
+            width: `${addColorModalSize.horizontal}px`,
+            height: `${addColorModalSize.vertical}px`,
           }}
-          onClick={() => {
-            closeColorModal()
-          }}
+          // onClick={() => {
+          //   closeColorModal()
+          // }}
         >
           <p>
             {addColorModal}/{editColorModal}
@@ -144,6 +167,17 @@ const ColorStripe: NextPage = () => {
           <p>
             {colorModalPosition.vertical}, {colorModalPosition.horizontal}
           </p>
+
+          <input
+            className={
+              `text-black` +
+              ` dark:bg-gray-200` +
+              ` rounded-[10px] border-4 border-body dark:border-gray-900 focus:border-4`
+            }
+            type="text"
+            name="rgb_color"
+            value={color}
+          />
         </div>
       ) : undefined}
     </>
