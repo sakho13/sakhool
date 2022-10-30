@@ -61,9 +61,9 @@ function MyApp({ Component, pageProps }: AppProps) {
           }
         >
           {isDark ? (
-            <SunIcon className="w-[10px] h-[10px]" />
+            <SunIcon className="w-[80%] h-[80%] align-none inline" />
           ) : (
-            <MoonIcon className="w-[10px] h-[10px]" />
+            <MoonIcon className="w-[80%] h-[80%] align-none inline" />
           )}
         </button>
       </header>

@@ -1,7 +1,9 @@
+import {
+  ChevronDoubleLeftIcon,
+  ChevronDoubleRightIcon,
+} from "@heroicons/react/24/solid"
 import type { NextPage } from "next"
 import { ChangeEvent, useEffect, useState } from "react"
-import ChevronDoubleLeft from "@/components/icons/ChevronDoubleLeft"
-import ChevronDoubleRight from "@/components/icons/ChevronDoubleRight"
 import { toolPaths } from "@/statics/tool_paths"
 import styles from "@/styles/tools/conv_base64.module.scss"
 
@@ -127,7 +129,7 @@ const ConvBase64: NextPage = () => {
               ` dark:hover:bg-white dark:hover:text-black`
             }
           >
-            {toBase64 ? <ChevronDoubleRight /> : <ChevronDoubleLeft />}
+            {toBase64 ? <ChevronDoubleRightIcon /> : <ChevronDoubleLeftIcon />}
           </button>
         </div>
 
