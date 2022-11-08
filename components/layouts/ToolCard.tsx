@@ -3,6 +3,7 @@ import { memo, ReactNode } from "react"
 
 export type ToolCardProps = {
   children?: ReactNode
+  type: "logic" | "design"
   pathKey: string
   title: string
   description: string
@@ -17,7 +18,7 @@ const ToolCard = (props: ToolCardProps) => {
     if (isUndefined) {
       return
     }
-    router.push(`/tools/${props.pathKey}`)
+    router.push(`/tools/${props.type}/${props.pathKey}`)
   }
 
   return (

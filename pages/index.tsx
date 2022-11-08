@@ -18,6 +18,7 @@ const Home: NextPage = () => {
               <ToolCard
                 key={toolInfo.path}
                 pathKey={toolInfo.path}
+                type="logic"
                 title={toolInfo.title}
                 description={toolInfo.description}
               />
@@ -35,6 +36,7 @@ const Home: NextPage = () => {
               <ToolCard
                 key={toolInfo.path}
                 pathKey={toolInfo.path}
+                type="design"
                 title={toolInfo.title}
                 description={toolInfo.description}
               />

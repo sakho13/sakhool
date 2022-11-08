@@ -10,7 +10,7 @@ export const toolPaths: ToolInfo[] = [
     description: "テキストをBase64エンコード/デコードします",
   },
   {
-    path: "_conv_base64_file",
+    path: "_conv_file_base64",
     title: "ファイルのBase64エンコード",
     description: "ファイルをBase64エンコードします",
   },
